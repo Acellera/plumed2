@@ -29,10 +29,10 @@ matrix:
        - tcl-dev
    - os: osx
      language: generic
-     env: TRAVIS_PYTHON_VERSION=3.4
+     env: TRAVIS_PYTHON_VERSION=3.4 CC=gcc FC=gfortran CXX=g++
    - os: osx
      language: generic
-     env: TRAVIS_PYTHON_VERSION=3.5
+     env: TRAVIS_PYTHON_VERSION=3.5 CC=gcc FC=gfortran CXX=g++
 
 
 install:
