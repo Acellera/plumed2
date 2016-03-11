@@ -13,6 +13,7 @@ matrix:
        packages:
        - gfortran-4.4
        - gcc-4.4
+       - g++-4.4
        - tcl-dev
 
    - os: linux
@@ -24,6 +25,7 @@ matrix:
        packages:
        - gfortran-4.4
        - gcc-4.4
+       - g++-4.4
        - tcl-dev
    - os: osx
      language: generic
