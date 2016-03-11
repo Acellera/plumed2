@@ -10,10 +10,23 @@ matrix:
      dist: precise
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.4
+     addons:
+      apt:
+       packages:
+       - gfortran-4.4
+       - gcc-4.4
+       - tcl-dev
+
    - os: linux
      dist: precise
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.5
+     addons:
+      apt:
+       packages:
+       - gfortran-4.4
+       - gcc-4.4
+       - tcl-dev
    - os: osx
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.4
