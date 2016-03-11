@@ -60,7 +60,7 @@ install:
 
 
  - conda build --python $TRAVIS_PYTHON_VERSION package/
- - conda install plumed1 --use-local
+ - conda install plumed2 --use-local
 
 script:
 
