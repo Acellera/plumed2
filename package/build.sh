@@ -1,20 +1,6 @@
-CC=gcc-4.4
-CXX=g++-4.4
-FC=gfortran-4.4
-
-which $CC
-if [ "$?" != "0" ]; then
-  CC=gcc
-fi
-which $FC
-if [ "$?" != "0" ]; then
-  FC=gfortran
-fi
-which $CXX
-if [ "$?" != "0" ]; then
-  CXX=g++-4.4
-fi
-
+if [ "$CC" == "" ]; then CC=gcc; fi
+if [ "$FC" == "" ]; then FC=gfortran; fi
+if [ "$CXX" == "" ]; then CXX=g++; fi
 
 DIR="$CONDA_DEFAULT_ENV"
 mkdir -p "$DIR/lib/"

@@ -8,6 +8,9 @@ matrix:
      dist: precise
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.4
+     env: CC=gcc-4.4
+     env: FC=gfortran-4.4
+     env: CXX=g++-4.4
      addons:
       apt:
        packages:
@@ -20,6 +23,9 @@ matrix:
      dist: precise
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.5
+     env: CC=gcc-4.4
+     env: FC=gfortran-4.4
+     env: CXX=g++-4.4
      addons:
       apt:
        packages:
