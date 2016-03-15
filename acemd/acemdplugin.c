@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#define ERROR(a) { printf("%s\n", (a)); exit(1); }
 
 struct p {
 	plumed plumed;
