@@ -23,7 +23,10 @@ make CC=$CC TCL="-I$SYS_PREFIX/include -L$SYS_PREFIX/lib"
 
 cp -r ../patches "$DIR/lib"
 cp ../src/lib/install/plumed "$DIR/bin/plumed.bin"
-echo 'DIR=$(dirname "$(which python)"); LD_LIBRARY_PATH="$DIR/../lib/compat-libc"; PLUMED_ROOT="$DIR/../lib" "$DIR/plumed.bin" $@' > "$DIR/bin/plumed"
+
+# Toni - not sure if lib / bin copying is needed. The --standalone-executable quells the PLUMED_ROOT warning. 
+echo '#!/bin/bash' > "$DIR/bin/plumed"
+echo 'DIR=$(dirname "$(which python)"); LD_LIBRARY_PATH="$DIR/../lib/compat-libc"; PLUMED_ROOT="$DIR/../lib" "$DIR/plumed.bin" $@' >> "$DIR/bin/plumed"
 chmod +x "$DIR/bin/plumed"
 
 cp libplumed2.so libplumedKernel.so libplumed2plugin.so  "$DIR/lib"
@@ -34,9 +37,4 @@ if [ "$TRAVIS_OS_NAME" == "osx" ]; then
 	ln -s libplumedKernel.so libplumedKernel.dylib
 	ln -s libplumed2plugin.so libplumed2plugin.dylib
 fi
-
-
-
-
-
 
