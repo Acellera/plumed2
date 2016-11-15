@@ -38,3 +38,4 @@ if [ "$TRAVIS_OS_NAME" == "osx" ]; then
 	ln -s libplumed2plugin.so libplumed2plugin.dylib
 fi
 
+
