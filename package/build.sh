@@ -33,9 +33,9 @@ cp libplumed2.so libplumedKernel.so libplumed2plugin.so  "$DIR/lib"
 
 if [ "$TRAVIS_OS_NAME" == "osx" ]; then
 	cd "$DIR/lib"
-	ln -s libplumed2.so libplumed2.dylib
-	ln -s libplumedKernel.so libplumedKernel.dylib
-	ln -s libplumed2plugin.so libplumed2plugin.dylib
+	cp libplumed2.so libplumed2.dylib
+	cp libplumedKernel.so libplumedKernel.dylib
+	cp libplumed2plugin.so libplumed2plugin.dylib
 fi
 
 
