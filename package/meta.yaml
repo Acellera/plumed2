@@ -1,6 +1,9 @@
 package:
  name: plumed2
- version: {{ environ.get('BUILD_VERSION', "0.0.1" ) }}
+ version: {{ environ.get('BUILD_VERSION', "2.3.0" ) }}
+
+source:
+ url: https://github.com/plumed/plumed2/archive/v2.3.0.tar.gz
 
 build:
  number: {{ environ.get('BUILD_NUMBER', 0 ) }}
@@ -10,8 +13,6 @@ build:
   - CXX
   - TRAVIS_OS_NAME
 
-source:
- path: ../
 
 requirements:
  build:

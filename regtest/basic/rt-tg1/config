@@ -1,2 +1,0 @@
-type=driver
-arg="--plumed plumed.dat --length-units A --ixyz tip3.A.xyz --pdb tip3.plumed.pdb"

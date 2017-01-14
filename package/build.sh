@@ -2,21 +2,24 @@ if [ "$CC" == "" ]; then CC=gcc; fi
 if [ "$FC" == "" ]; then FC=gfortran; fi
 if [ "$CXX" == "" ]; then CXX=g++; fi
 
-DIR="$CONDA_DEFAULT_ENV"
+cp -r $RECIPE_DIR/acemd .
+
+DIR="$PREFIX"
 mkdir -p "$DIR/lib/"
 mkdir -p "$DIR/bin/"
 
 printenv
 
 ./configure --prefix=$DIR --disable-mpi CC=$CC CXX=$CXX FC=$FC
-make -j 4 
-
+make -j 4  > log 2>&1
 
 ls -l src/lib/install
 
 
 cp src/lib/install/libplumed.* acemd/libplumed2.so 
 cp src/lib/install/libplumedKernel.* acemd/libplumedKernel.so
+mkdir -p "$DIR/include/wrapper/"
+cp src/wrapper/Plumed.h "$DIR/include/wrapper/"
  
 cd acemd
 make CC=$CC TCL="-I$SYS_PREFIX/include -L$SYS_PREFIX/lib" 

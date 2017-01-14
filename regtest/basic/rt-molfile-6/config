@@ -1,2 +1,0 @@
-type=driver
-arg="--plumed plumed.dat --mf_pdb input.pdb"
