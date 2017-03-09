@@ -1,6 +1,10 @@
-if [ "$CC" == "" ]; then CC=gcc; fi
-if [ "$FC" == "" ]; then FC=gfortran; fi
-if [ "$CXX" == "" ]; then CXX=g++; fi
+#!/bin/bash
+
+CC=gcc FC=gfortran  CXX=g++
+
+# if [ "$CC" == "" ]; then CC=gcc; fi
+# if [ "$FC" == "" ]; then FC=gfortran; fi
+# if [ "$CXX" == "" ]; then CXX=g++; fi
 
 cp -r $RECIPE_DIR/acemd .
 
