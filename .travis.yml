@@ -29,9 +29,8 @@ install:
  - export PATH="$HOME/miniconda/bin:$PATH"
  - hash -r
  - conda config --set always_yes yes 
- - conda install cytoolz -y
  - conda update --all -y
- - conda install anaconda conda-build -y
+ - conda install conda-build -y
  - conda config --add channels acellera
 
  - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION 
