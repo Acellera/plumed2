@@ -1,6 +1,6 @@
 package:
  name: plumed2
- version: {{ environ.get('BUILD_VERSION', "2.3.0" ) }}
+ version: {{ environ.get('BUILD_VERSION', "0.0.1" ) }}
 
 source:
  git_url: https://github.com/plumed/plumed2

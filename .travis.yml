@@ -8,16 +8,9 @@ matrix:
      dist: precise
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.6 
-   - os: linux
-     dist: precise
-     language: generic
-     env: TRAVIS_PYTHON_VERSION=3.5
    - os: osx
      language: generic
      env: TRAVIS_PYTHON_VERSION=3.6
-   - os: osx
-     language: generic
-     env: TRAVIS_PYTHON_VERSION=3.5
 
 
 install:
@@ -51,7 +44,7 @@ script:
 after_success:
  - export PATH="$HOME/miniconda/bin:$PATH"
  - echo $PATH
- - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-[0-9]*.tar.bz2 -u acellera 
+ - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-*.tar.bz2 -u acellera 
 # - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-[0-9]*.tar.bz2 -u acellera-basic 
 
 
