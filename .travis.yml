@@ -1,14 +1,18 @@
 branches:
  only:
   - master
+    
 
 matrix:
   include:
    - os: linux
      dist: precise
      language: generic
+     env: CC=gcc
    - os: osx
      language: generic
+     env: CC=clang
+
 
 
 install:

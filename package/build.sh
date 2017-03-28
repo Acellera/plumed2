@@ -1,18 +1,12 @@
 #!/bin/bash
 
-CC=gcc FC=gfortran  CXX=g++
-
-# if [ "$CC" == "" ]; then CC=gcc; fi
-# if [ "$FC" == "" ]; then FC=gfortran; fi
-# if [ "$CXX" == "" ]; then CXX=g++; fi
-
 cp -r $RECIPE_DIR/acemd .
 
 DIR="$PREFIX"
 
 printenv
 
-./configure --prefix=$DIR --disable-mpi CC=$CC CXX=$CXX FC=$FC
+./configure --prefix=$DIR --disable-mpi
 make -j 2 > log 2>&1
 
 make install
