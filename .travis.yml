@@ -1,27 +1,26 @@
 branches:
  only:
   - master
-    
+
+language: generic
+
+dist: precise
+
 
 matrix:
   include:
    - os: linux
-     dist: precise
-     language: generic
      env: CC=gcc
    - os: linux
-     dist: precise
-     language: generic
      env: CC=x86_64-w64-mingw32-gcc LDFLAGS="-static -s" CROSS=1
      addons:
-	apt:
-	   packages:
-	   - gcc-mingw-w64-x86-64
-       	   - g++-mingw-w64-x86-64
-       	   - binutils-mingw-w64-x86-64
-	   - mingw-w64-dev
+       apt:
+         packages:
+           - gcc-mingw-w64-x86-64
+           - g++-mingw-w64-x86-64
+           - binutils-mingw-w64-x86-64
+           - mingw-w64-dev
    - os: osx
-     language: generic
      env: CC=clang
 
 
