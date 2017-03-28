@@ -9,40 +9,21 @@ CC=gcc FC=gfortran  CXX=g++
 cp -r $RECIPE_DIR/acemd .
 
 DIR="$PREFIX"
-mkdir -p "$DIR/lib/"
-mkdir -p "$DIR/bin/"
 
 printenv
 
 ./configure --prefix=$DIR --disable-mpi CC=$CC CXX=$CXX FC=$FC
-make -j 4  > log 2>&1
+make -j 2 > log 2>&1
+
+make install
 
 ls -l src/lib/install
 
-
 cp src/lib/install/libplumed.* acemd/libplumed2.so 
 cp src/lib/install/libplumedKernel.* acemd/libplumedKernel.so
-mkdir -p "$DIR/include/wrapper/"
-cp src/wrapper/Plumed.h "$DIR/include/wrapper/"
  
 cd acemd
 make CC=$CC TCL="-I$SYS_PREFIX/include -L$SYS_PREFIX/lib" 
 
-cp -r ../patches "$DIR/lib"
-cp ../src/lib/install/plumed "$DIR/bin/plumed.bin"
-
-# Toni - not sure if lib / bin copying is needed. The --standalone-executable quells the PLUMED_ROOT warning. 
-echo '#!/bin/bash' > "$DIR/bin/plumed"
-echo 'DIR=$(dirname "$(which python)"); LD_LIBRARY_PATH="$DIR/../lib/compat-libc"; PLUMED_ROOT="$DIR/../lib" "$DIR/plumed.bin" $@' >> "$DIR/bin/plumed"
-chmod +x "$DIR/bin/plumed"
-
-cp libplumed2.so libplumedKernel.so libplumed2plugin.so  "$DIR/lib"
-
-if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-	cd "$DIR/lib"
-	cp libplumed2.so libplumed2.dylib
-	cp libplumedKernel.so libplumedKernel.dylib
-	cp libplumed2plugin.so libplumed2plugin.dylib
-fi
-
+cp libplumed2plugin.so $DIR/lib
 

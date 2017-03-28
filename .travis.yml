@@ -7,10 +7,8 @@ matrix:
    - os: linux
      dist: precise
      language: generic
-     env: TRAVIS_PYTHON_VERSION=3.6 
    - os: osx
      language: generic
-     env: TRAVIS_PYTHON_VERSION=3.6
 
 
 install:
@@ -26,7 +24,7 @@ install:
  - conda install anaconda-client conda-build -y
  - conda config --add channels acellera
 
- - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION 
+ - conda create -q -n travis-env 
  - source activate travis-env
 
  - git describe --tags
@@ -36,7 +34,7 @@ install:
  - export BUILD_NUMBER=0
 
 
- - conda build --python $TRAVIS_PYTHON_VERSION package/
+ - conda build  package/
  - conda install plumed2 --use-local
 
 script:
