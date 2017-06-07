@@ -17,9 +17,9 @@ build:
 
 requirements:
  build:
-  - gcc
 
  run:
+
 
 about:
  license: "LGPL"

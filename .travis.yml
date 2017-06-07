@@ -2,15 +2,27 @@ branches:
  only:
   - master
 
+language: generic
+
+dist: precise
+
+
 matrix:
   include:
    - os: linux
-     dist: precise
-     language: generic
-     env: TRAVIS_PYTHON_VERSION=3.6 
+     env: CC=gcc
    - os: osx
-     language: generic
-     env: TRAVIS_PYTHON_VERSION=3.6
+     env: CC=clang
+#   - os: linux
+#     env: CC=x86_64-w64-mingw32-gcc LDFLAGS="-static -s" CROSS=1
+#     addons:
+#       apt:
+#         packages:
+#           - gcc-mingw-w64-x86-64
+#           - g++-mingw-w64-x86-64
+#           - binutils-mingw-w64-x86-64
+#           - mingw-w64-dev
+
 
 
 install:
@@ -26,7 +38,7 @@ install:
  - conda install conda-build -y
  - conda config --add channels acellera
 
- - conda create -q -n travis-env python=$TRAVIS_PYTHON_VERSION 
+ - conda create -q -n travis-env 
  - source activate travis-env
 
  - git describe --tags
@@ -36,7 +48,7 @@ install:
  - export BUILD_NUMBER=0
 
 
- - conda build --python $TRAVIS_PYTHON_VERSION package/
+ - conda build  package/
  - conda install plumed2 --use-local
 
 script:
