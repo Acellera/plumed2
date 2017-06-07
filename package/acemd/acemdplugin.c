@@ -37,7 +37,7 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 	i=4;
 	plumed_cmd( P, "setRealPrecision", &i );
 	
-	f=1.0;
+	f=4.184;
 	plumed_cmd( P, "setMDEnergyUnits", &f );
 
 	f=0.1;
