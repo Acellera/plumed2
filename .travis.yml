@@ -7,7 +7,7 @@ git:
 
 language: generic
 
-# dist: precise
+dist: trusty
 
 
 matrix:
