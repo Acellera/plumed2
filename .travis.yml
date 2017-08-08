@@ -10,7 +10,6 @@ language: generic
 
 dist: trusty
 
-
 matrix:
   include:
    - os: linux
@@ -51,7 +50,7 @@ install:
  # Always set it to 0 so we don't get a new release at every successful commit
  - export BUILD_NUMBER=0
 
-
+ - conda install -y tk
  - conda build  package/
  - conda install plumed2 --use-local
 
