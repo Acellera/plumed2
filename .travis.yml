@@ -8,7 +8,7 @@ branches:
 
 language: generic
 
-dist: trusty
+dist: precise
 
 matrix:
   include:

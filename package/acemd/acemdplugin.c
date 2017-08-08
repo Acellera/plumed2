@@ -10,6 +10,10 @@
 
 #define ERROR(a) { printf("%s\n", (a)); exit(1); }
 
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
+
 struct p {
 	plumed plumed;
 	float  *pos;

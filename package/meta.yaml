@@ -22,7 +22,7 @@ build:
 
 requirements:
  build:
-
+  - tk
  run:
 
 
