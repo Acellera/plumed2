@@ -2,6 +2,9 @@ branches:
  only:
   - master
 
+git:
+ depth: 0
+
 language: generic
 
 dist: precise

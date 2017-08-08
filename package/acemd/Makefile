@@ -11,6 +11,7 @@ CONDA_ROOT=$(shell conda info --root)
 libplumed2plugin.so:
 	$(CC) -O2  -g --shared -fPIC -o libplumed2plugin.so acemdplugin.c  \
 	 	-I. -I../src/wrapper/ -I$(PLUMED_ROOT)/src/wrapper -I$(CONDA_ROOT)/include/plumed/wrapper \
+		-I $(CONDA_ROOT)/include \
 		-L. -L$(PREFIX)/lib -L$(CONDA_ROOT)/lib  -lplumed
 
 test:
