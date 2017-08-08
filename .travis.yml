@@ -3,11 +3,11 @@ branches:
   - master
 
 git:
- depth: 0
+ depth: 1
 
 language: generic
 
-dist: precise
+# dist: precise
 
 
 matrix:
