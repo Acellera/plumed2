@@ -1,10 +1,12 @@
 #include "Plumed.h"
-#include "tcl.h"
+#include "tcl.h"		/* needed by aceplug :( */
 #include "aceplug.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <limits.h>
+#include <string.h>
 
 #define ERROR(a) { printf("%s\n", (a)); exit(1); }
 
@@ -26,6 +28,21 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 	int   i;
 	float f;
 
+	printf("# ACEMD plugin versions: %d / %d\n", s->version, s->plugin_version());
+
+	/* pluginarg named "input" and "log" are the only configurable
+	 * parameters. We assume strings from acemd are
+	 * null-terminated. */
+	char plumed_dat[PATH_MAX]="plumed.dat";
+	char plumed_log[PATH_MAX]="plumed.log";
+
+	for(int c=0; c<argc; c++) {
+	    if(strncmp(argkey[c],"input",6)==0) 
+		strncpy(plumed_dat,argval[c],PATH_MAX);
+	    if(strncmp(argkey[c],"log",4)==0)
+		strncpy(plumed_log,argval[c],PATH_MAX);
+	}
+	
 	s->privdata = (struct p*) malloc( sizeof( struct p ) );
 	memset( s->privdata, 0 , sizeof( struct p ) );
 	Ppos = (float*) malloc( sizeof(float) * s->natoms * 3 );
@@ -33,6 +50,9 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 	
 	P = plumed_create();
 
+	int plumed_api_version=0;
+	plumed_cmd( P, "getApiVersion",&plumed_api_version);
+	printf("# PLUMED2 Api Version: %d\n",plumed_api_version);
 
 	i=4;
 	plumed_cmd( P, "setRealPrecision", &i );
@@ -49,10 +69,10 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 	f= 0.001;
 	plumed_cmd( P, "setMDTimeUnits", &f );
 
-	plumed_cmd( P, "setPlumedDat", "plumed.dat" );
+	plumed_cmd( P, "setPlumedDat", plumed_dat );
 	plumed_cmd( P, "setNatoms"   , &(s->natoms) );
 	plumed_cmd( P, "setMDEngine" , "acemd" );
-	plumed_cmd( P, "setLogFile"  , "plumed.log" );
+	plumed_cmd( P, "setLogFile"  , plumed_log );
 	plumed_cmd( P, "setTimestep" , &(s->timestep_fs) );
 	plumed_cmd( P, "init"        , NULL );
 	memset( Pbox   , 0, sizeof(float) * 9 );
@@ -61,6 +81,8 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 	Pbox[1][1]    = s->box.y;
 	Pbox[2][2]    = s->box.z;
 
+	printf("# PLUMED2 input file: %s\n", plumed_dat);
+	printf("# PLUMED2 log file: %s\n", plumed_log);
 
 	return ACEPLUG_OK;
 }
