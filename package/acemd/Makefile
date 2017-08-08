@@ -5,9 +5,8 @@ PLUMED_ROOT=$(shell plumed info --root)
 CONDA_ROOT=$(shell conda info --root)
 
 # tcl.h is needed by aceplug.h. Using conda's distributed in the tk
-# package, for reproducibility. Before it was...
+# package, for reproducibility. To use the system's one...
 # -I$(SYS_PREFIX)/include -L$(SYS_PREFIX)/lib 
-
 
 libplumed2plugin.so:
 	$(CC) -std=c99 -O2  -g --shared -fPIC -o libplumed2plugin.so acemdplugin.c  \
