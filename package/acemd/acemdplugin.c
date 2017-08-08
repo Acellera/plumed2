@@ -36,7 +36,10 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 
 	i=4;
 	plumed_cmd( P, "setRealPrecision", &i );
-	
+
+	/* Toni: 4.184 is for thermochemical calories.
+	 * MD_KCAL_TO_KJ=4.1868 is for international calories. Going
+	 * with the value used in most MD engines.  */
 	f=4.184;
 	plumed_cmd( P, "setMDEnergyUnits", &f );
 
@@ -49,7 +52,7 @@ aceplug_err_t aceplug_init( aceplug_sim_t *s, int argc, char **argkey, char **ar
 	plumed_cmd( P, "setPlumedDat", "plumed.dat" );
 	plumed_cmd( P, "setNatoms"   , &(s->natoms) );
 	plumed_cmd( P, "setMDEngine" , "acemd" );
-	plumed_cmd( P, "setLogFile"      , "plumed.log" );
+	plumed_cmd( P, "setLogFile"  , "plumed.log" );
 	plumed_cmd( P, "setTimestep" , &(s->timestep_fs) );
 	plumed_cmd( P, "init"        , NULL );
 	memset( Pbox   , 0, sizeof(float) * 9 );
