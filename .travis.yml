@@ -2,8 +2,9 @@ branches:
  only:
   - master
 
-git:
- depth: 1
+# More depth needed or git describe fails
+# git:
+#  depth: 1
 
 language: generic
 
