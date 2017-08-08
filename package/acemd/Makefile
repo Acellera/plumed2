@@ -1,13 +1,20 @@
-all: libplumed2plugin.so
+default: libplumed2plugin.so
 
-# TG added so one can compile outside of conda. Failure is ok.
+# TG some include paths added so one can compile outside of conda. Failure is ok.
 PLUMED_ROOT=$(shell plumed info --root)
+CONDA_ROOT=$(shell conda info --root)
 
-CONDA_ROOT=$(PREFIX)
+# SYS_PREFIX thing is for TCL, needed by aceplug.h
+#                -I$(SYS_PREFIX)/include -L$(SYS_PREFIX)/lib \
+
 
 libplumed2plugin.so:
-	$(CC) -O2  -g --shared -fPIC -o libplumed2plugin.so acemdplugin.c  -I. -I../src/wrapper/ -I$(PLUMED_ROOT)/src/wrapper -L. -L$(CONDA_ROOT)/lib -lplumed
-#	$(CC) -o test test.c -ldl $(
+	$(CC) -O2  -g --shared -fPIC -o libplumed2plugin.so acemdplugin.c  \
+	 	-I. -I../src/wrapper/ -I$(PLUMED_ROOT)/src/wrapper -I$(CONDA_ROOT)/include/plumed/wrapper \
+		-L. -L$(PREFIX)/lib -L$(CONDA_ROOT)/lib  -lplumed
+
+test:
+	$(CC) -o test test.c -ldl $(
 
 clean:
 	rm -f lib*.so
