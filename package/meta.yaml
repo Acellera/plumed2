@@ -8,8 +8,10 @@ about:
  summary: PLUMED is an open source library for free energy calculations in molecular systems
 
 source:
- git_url: https://github.com/plumed/plumed2
- git_rev: v2.3.2
+  - git_url: https://github.com/plumed/plumed2
+    git_rev: v2.3.2
+  - path: ../acemd2_plugin
+    folder: acemd2_plugin
 
 requirements:
  build:
