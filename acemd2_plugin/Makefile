@@ -15,7 +15,10 @@ libplumed2plugin.so:
 		-L. -L$(PREFIX)/lib -L$(CONDA_ROOT)/lib  -lplumed
 
 test:
-	$(CC) -o test test.c -ldl $(
+	$(CC) -o test test.c -ldl
+
+check: test
+	./test
 
 clean:
 	rm -f lib*.so

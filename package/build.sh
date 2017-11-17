@@ -4,7 +4,7 @@ printenv
 
 # Standard plumed2 build+install
 ./configure --prefix=$PREFIX --disable-mpi
-make -j 2 > log 2>&1
+make -j $CPU_COUNT
 make install
 
 # A compatibility symlink until  acemd3 and local openmm-plumed are updated.

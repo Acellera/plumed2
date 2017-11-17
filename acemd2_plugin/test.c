@@ -1,12 +1,15 @@
 #include <dlfcn.h>
 #include <stdio.h>
 
-void main(void) {
-
- void *      ptr = dlopen( "libplumed2plugin.so", RTLD_LAZY | RTLD_LOCAL );
-
-	printf("%x [%s]\n", ptr, dlerror() );
-
+int main(void)
+{
+    void *ptr = dlopen("libplumed2plugin.so", RTLD_LAZY | RTLD_LOCAL);
+    if (!ptr)
+    {
+        printf("%s\n", dlerror());
+        return 1;
+    }
+    return 0;
 }
 
 
