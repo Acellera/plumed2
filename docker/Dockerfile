@@ -4,11 +4,13 @@
 FROM centos:6.9
 
 # Install system packages
-RUN yum install --disablerepo=updates --assumeyes \
+RUN yum update --assumeyes &&\
+    yum install --assumeyes \
                 gcc-c++ \
                 git \
-                wget \
-    && yum clean all
+                vim-enhanced \
+                wget &&\
+    yum clean all
 
 # Install Miniconda
 ENV CONDA_URL https://repo.continuum.io/miniconda
@@ -20,7 +22,10 @@ RUN cd tmp &&\
     rm $CONDA_INSTALLER
 ENV PATH $CONDA_PATH/bin:$PATH
 
-# Install Plumed2 dependencies
-#RUN conda install --channel acellera --yes \
-#                  openmm cuda-runtime openmm-plumed2 &&\
-#    conda clean --all --yes
+# Install conda packages
+RUN conda install --yes\
+                  conda-build &&\
+    conda clean --all --yes
+
+WORKDIR /tmp/conda-plumed2.git
+CMD sleep 3600
