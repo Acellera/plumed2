@@ -3,22 +3,12 @@ sudo: required
 services:
   - docker
 
-#branches:
-# only:
-#  - master
-
-# More depth needed or git describe fails
-# git:
-#  depth: 1
-
 language: cpp
-
-#dist: precise
 
 matrix:
   include:
    - os: linux
-     env: CC=gcc
+#     env: CC=gcc
 #   - os: osx
 #     env: CC=clang
 #   - os: linux
@@ -32,38 +22,29 @@ matrix:
 #           - mingw-w64-dev
 
 install:
- - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh; fi
- - if [ "$TRAVIS_OS_NAME" == "osx" ]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh; fi
- - if [ "$TRAVIS_OS_NAME" == "windows" ]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.sh -O miniconda.sh; fi
+  # Install miniconda
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh; fi
+  - bash Miniconda3-latest-*-x86_64.sh -b -p $HOME/miniconda
+  - export PATH=$HOME/miniconda/bin:$PATH
 
- - bash miniconda.sh -b -p $HOME/miniconda
- - export PATH="$HOME/miniconda/bin:$PATH"
- - hash -r
- - conda config --set always_yes yes 
- - conda update --all -y
- - conda install anaconda-client conda-build -y
- - conda config --add channels acellera
+  # Update and install conda packages
+  - conda update --yes --all
+  - conda install --yes anaconda-client conda-build
 
- - conda create -q -n travis-env 
- - source activate travis-env
-
- - git describe --tags
- - export BUILD_VERSION=$(git describe --tags | sed 's/-/ /g' | awk '{print $1}')
- - export BUILD_NUMBER=$(git describe --tags | sed 's/-/ /g' | awk '{print $2}')
- # Always set it to 0 so we don't get a new release at every successful commit
- - export BUILD_NUMBER=0
+before_script:
+  - export BUILD_VERSION=$(git describe --tags | sed 's/-/ /g' | awk '{print $1}')
+  - export BUILD_NUMBER=$(git describe --tags | sed 's/-/ /g' | awk '{print $2}')
+  # Always set it to 0 so we don't get a new release at every successful commit
+  - export BUILD_NUMBER=0
 
 script:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then bash package/build_on_docker.sh; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx"   ]; then conda build  package/; fi
-
-  - ls -l
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then conda build package; fi
   - ls -l linux-64
 
-
 after_success:
- - export PATH="$HOME/miniconda/bin:$PATH"
- - echo $PATH
+ - export PATH=$HOME/miniconda/bin:$PATH
 # - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-*.tar.bz2 -u acellera
 # - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-[0-9]*.tar.bz2 -u acellera-basic 
 
