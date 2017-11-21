@@ -1,6 +1,6 @@
-branches:
- only:
-  - master
+#branches:
+# only:
+#  - master
 
 # More depth needed or git describe fails
 # git:
@@ -59,7 +59,7 @@ script:
 after_success:
  - export PATH="$HOME/miniconda/bin:$PATH"
  - echo $PATH
- - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-*.tar.bz2 -u acellera 
+# - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-*.tar.bz2 -u acellera
 # - anaconda -t $ANACONDA_TOKEN upload  $HOME/miniconda/conda-bld/*-64/plumed2-[0-9]*.tar.bz2 -u acellera-basic 
 
 
