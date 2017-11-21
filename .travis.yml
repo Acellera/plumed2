@@ -11,9 +11,9 @@ services:
 # git:
 #  depth: 1
 
-language: generic
+language: cpp
 
-dist: precise
+#dist: precise
 
 matrix:
   include:
@@ -30,8 +30,6 @@ matrix:
 #           - g++-mingw-w64-x86-64
 #           - binutils-mingw-w64-x86-64
 #           - mingw-w64-dev
-
-
 
 install:
  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh; fi
@@ -59,8 +57,11 @@ install:
  - conda build  package/
  - conda install plumed2 --use-local
 
+ - docker build --tag plumed2image docker
+
 script:
-  - docker --version
+  - echo
+
 
 after_success:
  - export PATH="$HOME/miniconda/bin:$PATH"
