@@ -1,3 +1,8 @@
+sudo: required
+
+services:
+  - docker
+
 #branches:
 # only:
 #  - master
@@ -55,6 +60,7 @@ install:
  - conda install plumed2 --use-local
 
 script:
+  - docker --version
 
 after_success:
  - export PATH="$HOME/miniconda/bin:$PATH"
