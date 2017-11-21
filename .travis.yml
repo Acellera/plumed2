@@ -53,14 +53,12 @@ install:
  # Always set it to 0 so we don't get a new release at every successful commit
  - export BUILD_NUMBER=0
 
- - conda install -y tk
- - conda build  package/
- - conda install plumed2 --use-local
-
- - docker build --tag plumed2image docker
-
 script:
-  - echo
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then bash package/build_on_docker.sh; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx"   ]; then conda build  package/; fi
+
+  - ls -l
+  - ls -l linux-64
 
 
 after_success:
