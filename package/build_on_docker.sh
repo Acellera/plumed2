@@ -18,7 +18,9 @@ docker start $ID
 docker cp . $ID:/tmp/conda-plumed2.git
 
 # Build a package
-docker exec --tty $ID $CONDA_PATH/bin/conda build package
+docker exec --env BUILD_VERSION=${BUILD_VERSION:?}\
+            --env BUILD_NUMBER=${BUILD_NUMBER:?}\
+            --tty $ID $CONDA_PATH/bin/conda build package
 
 # Copy the built package from the container
 docker cp $ID:$CONDA_PATH/conda-bld/linux-64/ .
