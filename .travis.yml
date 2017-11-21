@@ -14,8 +14,8 @@ matrix:
   include:
    - os: linux
      env: CC=gcc
-   - os: osx
-     env: CC=clang
+#   - os: osx
+#     env: CC=clang
 #   - os: linux
 #     env: CC=x86_64-w64-mingw32-gcc LDFLAGS="-static -s" CROSS=1
 #     addons:
