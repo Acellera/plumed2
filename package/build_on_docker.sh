@@ -18,8 +18,8 @@ docker start $ID
 docker cp . $ID:/tmp/conda-plumed2.git
 
 # Build a package
-docker exec --env BUILD_VERSION=${BUILD_VERSION:?}\
-            --env BUILD_NUMBER=${BUILD_NUMBER:?}\
+docker exec --env BUILD_VERSION=${BUILD_VERSION:-undef_build_version}\
+            --env BUILD_NUMBER=${BUILD_NUMBER:-undef_build_number}\
             --tty $ID $CONDA_PATH/bin/conda build package
 
 # Copy the built package from the container
