@@ -44,11 +44,10 @@ script:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then conda build package; fi
 
 after_success:
-  # Check if a commit is from the master branch and tagged
-  - if [ "$(git symbolic-ref --short HEAD)" != "master" ]; then exit 0; fi
-  - if [ "$(git describe --tags --exact)" == "" ]; then exit 0; fi
-
-  # Upload to anaconda.org
+  # Upload to anaconda.org iff build was triggered by a tag
+  # Note that for tags, git does not store the branch from which a commit was tagged.
+  - if [ "$TRAVIS_TAG" == "" ]; then exit 0; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then BUILD_PATH=$TRAVIS_BUILD_DIR/linux-64; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then BUILD_PATH=$HOME/miniconda/conda-bld/osx-64; fi
   - anaconda --token $ANACONDA_TOKEN upload --user acellera $BUILD_PATH/plumed2-*.tar.bz2
+
