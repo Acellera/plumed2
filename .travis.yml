@@ -45,7 +45,10 @@ script:
 
 after_success:
   # Check if a commit is from the master branch and tagged
-  - if [ "$(git symbolic-ref --short HEAD)" != "master" ]; then exit 0; fi
+  # Toni: Disabling the following check. Travis checks out in detached HEAD. 
+  # Can't find a way to reliably extract the branch.
+  # - if [ "$(git symbolic-ref --short HEAD)" != "master" ]; then exit 0; fi
+  # Let's just assume we tag releases and branches we want to distribute.
   - if [ "$(git describe --tags --exact)" == "" ]; then exit 0; fi
 
   # Upload to anaconda.org
