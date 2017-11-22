@@ -8,7 +8,7 @@ make -j $CPU_COUNT
 make install
 
 # A compatibility symlink until  acemd3 and local openmm-plumed are updated.
-# ln -s libplumed.so $PREFIX/lib/libplumed2.so || ln -s libplumed.dylib $PREFIX/lib/libplumed2.dylib
+ln -s libplumed.so $PREFIX/lib/libplumed2.so || ln -s libplumed.dylib $PREFIX/lib/libplumed2.dylib
 
 # Build and install ACEMD2 plugin
 cd acemd2_plugin
