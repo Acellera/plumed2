@@ -45,7 +45,7 @@ script:
 
 after_success:
   # Check if a commit is from the master branch and tagged
-  - if [ "$(git branch)" != "master" ]; then exit 0; fi
+  - if [ "$(git symbolic-ref --short HEAD)" != "master" ]; then exit 0; fi
   - if [ "$(git describe --tags --exact)" == "" ]; then exit 0; fi
 
   # Upload to anaconda.org
