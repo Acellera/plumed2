@@ -1,6 +1,8 @@
+# For now an OS-independent makefile seems ok.
+
 default: libplumed2plugin.so
 
-# TG some include paths added so one can compile outside of conda. Failure is ok.
+# TG some include paths were added so one can compile outside of conda. Failure here is ok.
 PLUMED_ROOT=$(shell plumed info --root)
 CONDA_ROOT=$(shell conda info --root)
 
@@ -17,8 +19,10 @@ libplumed2plugin.so:
 test:
 	$(CC) -o test test.c -ldl
 
+# For some reason dlopen in osx does not search in the test library path, so I'm adding it.
 check: test
-	./test
+	printenv
+	env DYLD_FALLBACK_LIBRARY_PATH=$(PREFIX)/lib ./test
 
 clean:
 	rm -f lib*.so
