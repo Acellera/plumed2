@@ -7,8 +7,8 @@ language: cpp
 
 matrix:
   include:
-#   - os: linux
-#     env: CC=gcc CXXFLAGS=-O3
+   - os: linux
+     env: CC=gcc CXXFLAGS=-O3
    - os: osx
      env: CC=clang CXX=clang++ CXXFLAGS=-O3
 #   - os: linux
